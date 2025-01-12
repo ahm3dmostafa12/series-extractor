@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض معلومات المسلسل</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .details {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .details ul li {
+            background: #eaeaea;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="title">مسلسل المداح 5 الحلقة 1 الأولى</h1>
+        <div class="details">
+            <h2>تفاصيل المسلسل</h2>
+            <p id="description">مسلسل الرعب والإثارة المصري "المداح 5" يعود بموسمه الخامس بتفاصيل مشوقة وحرب جديدة ضد الجن.</p>
+        </div>
+
+        <div class="details">
+            <h2>طاقم العمل</h2>
+            <ul id="actors">
+                <!-- الممثلون سيتم إضافتهم هنا -->
+            </ul>
+        </div>
+
+        <div class="details">
+            <h2>مشاهدة وتحميل الحلقة 1</h2>
+            <p>يمكنك مشاهدة وتحميل الحلقة الأولى من مسلسل المداح 5 عبر المنصات التالية:</p>
+            <ul>
+                <li><a id="link" href="#" target="_blank">موقع شاهد مسلسلات</a></li>
+            </ul>
+        </div>
+
+        <a id="watchBtn" href="#" class="btn" target="_blank">مشاهدة الحلقة 1 الآن</a>
+    </div>
+
+    <script>
+        // استخراج البيانات من الـ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const title = decodeURIComponent(urlParams.get('title') || "غير متوفر");
+        const description = decodeURIComponent(urlParams.get('description') || "غير متوفر");
+        const actors = decodeURIComponent(urlParams.get('actors') || "غير متوفر");
+        const link = decodeURIComponent(urlParams.get('link') || "#");
+
+        // عرض البيانات في الصفحة
+        document.getElementById('title').textContent = title;
+        document.getElementById('description').textContent = description;
+        document.getElementById('link').href = link;
+        document.getElementById('watchBtn').href = link;
+
+        // تقسيم الممثلين وعرضهم
+        const actorsList = actors.split(',').map(actor => `<li>${actor.trim()}</li>`).join('');
+        document.getElementById('actors').innerHTML = actorsList;
+    </script>
+</body>
+</html>
