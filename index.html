@@ -1,0 +1,88 @@
+HTML
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استخراج معلومات المسلسل</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>استخراج معلومات المسلسل</h1>
+        <textarea id="inputText" placeholder="الصق النص هنا..."></textarea>
+        <button onclick="extractData()">استخراج المعلومات</button>
+        <div class="result" id="result">
+            <!-- المعلومات المستخرجة ستظهر هنا -->
+        </div>
+    </div>
+
+    <script>
+        function extractData() {
+            const inputText = document.getElementById('inputText').value;
+            const resultDiv = document.getElementById('result');
+
+            // استخراج المعلومات باستخدام regex
+            const titleMatch = inputText.match(/<h2>(.*?)<\/h2>/);
+            const descriptionMatch = inputText.match(/<p>(.*?)<\/p>/g);
+            const actorsMatch = inputText.match(/ابطال مسلسل (.*?): (.*?)\./);
+            const linkMatch = inputText.match(/href="(.*?)"/);
+
+            const title = titleMatch ? titleMatch[1] : "غير متوفر";
+            const description = descriptionMatch ? descriptionMatch[0].replace(/<p>|<\/p>/g, '') : "غير متوفر";
+            const actors = actorsMatch ? actorsMatch[2] : "غير متوفر";
+            const link = linkMatch ? linkMatch[1] : "غير متوفر";
+
+            // عرض النتائج
+            resultDiv.innerHTML = `
+                <h2>المعلومات المستخرجة:</h2>
+                <p><strong>العنوان:</strong> ${title}</p>
+                <p><strong>الوصف:</strong> ${description}</p>
+                <p><strong>الممثلون:</strong> ${actors}</p>
+                <p><strong>رابط المشاهدة:</strong> <a href="${link}" target="_blank">${link}</a></p>
+                <a href="final.html?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&actors=${encodeURIComponent(actors)}&link=${encodeURIComponent(link)}" target="_blank">عرض الشكل النهائي</a>
+            `;
+        }
+    </script>
+</body>
+</html>
